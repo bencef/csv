@@ -1,7 +1,7 @@
 all: parser.cmo lexer.cmo csv.cmo
 
 clean:
-	rm -f {lexer,parser}.ml *.cm* *.mli
+	rm -f {lexer,parser}.ml *.cm* *.mli *.o
 
 toplevel: all
 	ocaml parser.cmo lexer.cmo csv.cmo
