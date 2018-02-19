@@ -13,3 +13,18 @@ let stream_of_channel c =
                match e with
                | Eof -> None
                | _   -> raise e)
+
+let to_orgtbl in_c out_c =
+  let to_tblrow () = Stream.next in_c
+                     |> String.concat "|"
+                     |> Printf.fprintf out_c "|%s|\n" in
+  let _ (* header *) = to_tblrow () in
+  let _ (* separator *) = Printf.fprintf out_c "|-\n" in
+  try
+    while true
+    do
+      to_tblrow ()
+    done
+  with e -> match e with
+            | Stream.Failure -> ()
+            | _ -> raise e
