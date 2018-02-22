@@ -14,7 +14,7 @@ let stream_of_channel c =
                | Eof -> None
                | _   -> raise e)
 
-let to_orgtbl in_c out_c =
+let to_orgtbl out_c in_c =
   let to_tblrow () = Stream.next in_c
                      |> String.concat "|"
                      |> Printf.fprintf out_c "|%s|\n" in
