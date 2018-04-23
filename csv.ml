@@ -6,7 +6,7 @@ let stream_of_channel c =
   let parse () = Parser.main Lexer.token lexbuf in
   Stream.from
     (fun (_:int) (* ordinal *) ->
-         try                            
+         try
            Some (parse ())
          with e ->
                let _ = close_in c in
