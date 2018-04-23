@@ -18,9 +18,11 @@ let to_orgtbl out_c in_c =
   let to_tblrow () = Stream.next in_c
                      |> String.concat "|"
                      |> Printf.fprintf out_c "|%s|\n" in
-  let _ (* header *) = to_tblrow () in
-  let _ (* separator *) = Printf.fprintf out_c "|-\n" in
+  let header () = to_tblrow () in
+  let separator () = Printf.fprintf out_c "|-\n" in
   try
+    header ();
+    separator ();
     while true
     do
       to_tblrow ()
