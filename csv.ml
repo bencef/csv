@@ -9,7 +9,7 @@ let stream_of_channel c =
          try
            Some (parse ())
          with e ->
-               let _ = close_in c in
+               close_in c;
                match e with
                | Eof -> None
                | _   -> raise e)
