@@ -13,6 +13,7 @@ fields:
   | field COMMA fields      { $1 :: $3 }
 ;
 field:
-    TEXT                    { $1 }
+    /* empty */             { "" }
+  | TEXT                    { $1 }
   | QUOTED_TEXT             { $1 }
 ;
