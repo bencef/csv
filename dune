@@ -1,0 +1,6 @@
+(library
+  (name csv))
+
+(ocamllex lexer)
+
+(ocamlyacc parser)

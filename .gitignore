@@ -5,3 +5,5 @@
 /parser.mli
 *.o
 *.cmx
+/.merlin
+/_build/
