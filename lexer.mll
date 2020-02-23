@@ -7,8 +7,8 @@ let trim s =
     String.sub s 1 len
 }
 rule token = parse
-    '\n'                                    { EOL }
+    '\r' ? '\n'                             { EOL }
   | ','                                     { COMMA }
-  | [ ^ '"' ',' '\n' ] +               as t { TEXT(t) }
+  | [ ^ '"' ',' '\r' '\n' ] +          as t { TEXT(t) }
   | '"' ( [ ^ '"' ] | '"' '"' ) * '"'  as t { QUOTED_TEXT(trim t) }
   | eof                                     { raise Eof }
