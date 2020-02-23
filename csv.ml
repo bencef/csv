@@ -1,4 +1,3 @@
-open Parser
 open Lexer
 
 let stream_of_channel c =

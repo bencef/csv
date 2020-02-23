@@ -1,6 +1,5 @@
 {
 open Parser
-open String
 exception Eof
 
 let trim s =
