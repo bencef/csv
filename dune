@@ -1,5 +1,5 @@
-(library
-  (name csv))
+(executable
+  (name csv_to_orgtbl))
 
 (ocamllex lexer)
 
