@@ -6,14 +6,14 @@
 %type <string list> main
 %%
 main:
-  rev_fields EOL                { List.rev $1 }
+  rev_fields EOL           { List.rev $1 }
 ;
 rev_fields:
-    field                   { $1 :: [] }
-  | rev_fields COMMA field      { $3 :: $1 }
+    field                  { $1 :: [] }
+  | rev_fields COMMA field { $3 :: $1 }
 ;
 field:
-    /* empty */             { "" }
-  | TEXT                    { $1 }
-  | QUOTED_TEXT             { $1 }
+    /* empty */            { "" }
+  | TEXT                   { $1 }
+  | QUOTED_TEXT            { $1 }
 ;
