@@ -5,7 +5,7 @@ stdenv.mkDerivation {
   version = "0.1.0";
   src = ./.;
 
-  buildInputs = with ocamlPackages; [dune ocaml];
+  buildInputs = with ocamlPackages; [dune_2 ocaml];
 
   buildPhase = "dune build @all";
 
