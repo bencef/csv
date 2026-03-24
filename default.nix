@@ -28,4 +28,8 @@ stdenv.mkDerivation {
   '';
 
   phases = ["unpackPhase" "buildPhase" "installPhase"];
+
+  meta = {
+    mainProgram = "csv_to_orgtbl";
+  };
 }
