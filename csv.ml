@@ -1,11 +1,11 @@
 open Lexer
 
-type t = string list Stream.t
+type t = string list Seq.t
 
 let stream_of_channel c =
   let lexbuf = Lexing.from_channel c in
   let parse () = Parser.main Lexer.token lexbuf in
-  Stream.from (fun (_:int) (* ordinal *) ->
+  Seq.of_dispenser (fun () ->
       try
         let row = parse() in
         Some row
@@ -16,17 +16,16 @@ let stream_of_channel c =
             | _   -> raise e)
 
 let to_orgtbl stream out_c =
-  let to_tblrow () = Stream.next stream
-                     |> String.concat "|"
-                     |> Printf.fprintf out_c "|%s|\n" in
-  let header () = to_tblrow () in
-  let separator () = Printf.fprintf out_c "|-\n" in
-  try
+  match Seq.uncons stream with
+  | None -> exit 1
+  | Some (header_titles, stream) -> (
+    let to_tblrow line =
+      line
+      |> String.concat "|"
+      |> Printf.fprintf out_c "|%s|\n" in
+    let header () = to_tblrow header_titles in
+    let separator () = Printf.fprintf out_c "|-\n" in
     header ();
     separator ();
-    while true do
-      to_tblrow()
-    done
-  with
-  | Stream.Failure -> ()
-  | e -> raise e
+    Seq.iter to_tblrow stream
+  )
