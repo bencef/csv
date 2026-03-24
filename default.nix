@@ -1,9 +1,22 @@
-{stdenv, ocamlPackages}:
+{stdenv, ocamlPackages, nix-filter ? null}:
 
 stdenv.mkDerivation {
   name = "csv-to-orgtbl";
   version = "0.1.0";
-  src = ./.;
+  src = if nix-filter == null
+        then ./.
+        else (nix-filter {
+          root = ./.;
+          include = [
+            ./csv.ml
+            ./csv.mli
+            ./csv_to_orgtbl.ml
+            ./dune
+            ./dune-project
+            ./lexer.mll
+            ./parser.mly
+          ];
+        });
 
   buildInputs = with ocamlPackages; [dune_2 ocaml];
 
